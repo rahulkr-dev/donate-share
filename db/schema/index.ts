@@ -1,4 +1,12 @@
-import { pgTable, text, timestamp, boolean, integer } from "drizzle-orm/pg-core"
+import {
+  pgTable,
+  text,
+  timestamp,
+  boolean,
+  integer,
+  serial,
+  varchar,
+} from "drizzle-orm/pg-core"
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -59,4 +67,20 @@ export const verification = pgTable("verification", {
   updatedAt: timestamp("updated_at").$defaultFn(
     () => /* @__PURE__ */ new Date()
   ),
+})
+
+export const donations = pgTable("donations", {
+  id: serial("id").primaryKey(),
+  title: varchar("title", { length: 255 }).notNull(),
+  description: text("description").notNull(),
+  category: varchar("category", { length: 100 }).notNull(),
+  location: varchar("location", { length: 255 }).notNull(),
+  imageUrl: varchar("image_url", { length: 500 }),
+  donorId: integer("donor_id").references(() => user.id),
+  donorName: varchar("donor_name", { length: 255 }).notNull(),
+  donorEmail: varchar("donor_email", { length: 255 }).notNull(),
+  donorPhone: varchar("donor_phone", { length: 20 }),
+  status: varchar("status", { length: 50 }).default("available"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
 })
