@@ -16,8 +16,9 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Donation-sharing",
-  description: "Donation sharing",
+  title: "DonateShare - Community Donation Exchange",
+  description:
+    "Connect with your community through our donation exchange platform. Share items, help others, and build stronger neighborhoods.",
 }
 
 export default function RootLayout({
