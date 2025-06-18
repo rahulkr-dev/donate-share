@@ -3,10 +3,12 @@ import {
   text,
   timestamp,
   boolean,
-  integer,
-  serial,
   varchar,
+  uuid,
+  serial,
 } from "drizzle-orm/pg-core"
+
+import { sql } from "drizzle-orm"
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -70,13 +72,17 @@ export const verification = pgTable("verification", {
 })
 
 export const donations = pgTable("donations", {
-  id: serial("id").primaryKey(),
+  id: text("id")
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
   title: varchar("title", { length: 255 }).notNull(),
   description: text("description").notNull(),
   category: varchar("category", { length: 100 }).notNull(),
   location: varchar("location", { length: 255 }).notNull(),
   imageUrl: varchar("image_url", { length: 500 }),
-  donorId: integer("donor_id").references(() => user.id),
+  donorId: text("donor_id")
+    .notNull()
+    .references(() => user.id),
   donorName: varchar("donor_name", { length: 255 }).notNull(),
   donorEmail: varchar("donor_email", { length: 255 }).notNull(),
   donorPhone: varchar("donor_phone", { length: 20 }),
