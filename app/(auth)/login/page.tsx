@@ -53,7 +53,7 @@ export default function LoginPage() {
       {
         email,
         password,
-        callbackURL: "/dashboard",
+        callbackURL: "/",
       },
       {
         onRequest: () => {
@@ -122,7 +122,7 @@ export default function LoginPage() {
             onClick={async () => {
               await authClient.signIn.social({
                 provider: "google",
-                callbackURL: "/dashboard",
+                callbackURL: "/",
               })
             }}
           >
@@ -155,7 +155,7 @@ export default function LoginPage() {
             onClick={async () => {
               await authClient.signIn.social({
                 provider: "github",
-                callbackURL: "/dashboard",
+                callbackURL: "/",
               })
             }}
             variant="outline"
