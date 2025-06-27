@@ -6,6 +6,7 @@ import {
   varchar,
   uuid,
   serial,
+  jsonb,
 } from "drizzle-orm/pg-core"
 
 import { sql } from "drizzle-orm"
@@ -79,7 +80,7 @@ export const donations = pgTable("donations", {
   description: text("description").notNull(),
   category: varchar("category", { length: 100 }).notNull(),
   location: varchar("location", { length: 255 }).notNull(),
-  imageUrl: varchar("image_url", { length: 500 }),
+  imageUrls: jsonb("image_urls").notNull().$type<string[]>(),
   donorId: text("donor_id")
     .notNull()
     .references(() => user.id),

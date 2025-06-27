@@ -1,0 +1,1 @@
+ALTER TABLE "donations" ALTER COLUMN "donor_id" SET NOT NULL;
