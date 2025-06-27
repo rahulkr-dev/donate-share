@@ -4,9 +4,26 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { Heart, Menu, Sparkles, Home, Package, Gift, Info, User, LogOut, Loader2 } from "lucide-react"
+import {
+  Heart,
+  Menu,
+  Sparkles,
+  Home,
+  Package,
+  Gift,
+  Info,
+  User,
+  LogOut,
+  Loader2,
+} from "lucide-react"
 import { useState } from "react"
 import { authClient } from "@/lib/auth-client"
 import { cn } from "@/lib/utils"
@@ -31,7 +48,7 @@ export function Navigation() {
       await authClient.signOut()
       setIsOpen(false)
     } catch (error) {
-      console.error('Sign out error:', error)
+      console.error("Sign out error:", error)
     } finally {
       setIsSigningOut(false)
     }
@@ -57,7 +74,10 @@ export function Navigation() {
               <span className="font-bold text-xl text-foreground group-hover:text-primary transition-colors">
                 DonateShare
               </span>
-              <Badge variant="secondary" className="hidden sm:inline-flex text-xs">
+              <Badge
+                variant="secondary"
+                className="hidden sm:inline-flex text-xs"
+              >
                 <Sparkles className="w-3 h-3 mr-1" />
                 Beta
               </Badge>
@@ -83,20 +103,25 @@ export function Navigation() {
 
             <div className="flex items-center space-x-2 ml-4 pl-4 border-l border-border">
               <ThemeToggle />
-              
+
               {isPending ? (
                 <div className="flex items-center space-x-2">
                   <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
-                  <span className="text-sm text-muted-foreground">Loading...</span>
+                  <span className="text-sm text-muted-foreground">
+                    Loading...
+                  </span>
                 </div>
               ) : session?.user ? (
                 <div className="flex items-center space-x-3">
                   <span className="text-sm text-muted-foreground">
-                    Hello, <span className="text-foreground font-medium">{session.user.name}</span>
+                    Hello,{" "}
+                    <span className="text-foreground font-medium">
+                      {session.user.name}
+                    </span>
                   </span>
-                  <Button 
-                    onClick={handleSignOut} 
-                    variant="outline" 
+                  <Button
+                    onClick={handleSignOut}
+                    variant="outline"
                     size="sm"
                     disabled={isSigningOut}
                   >
@@ -106,19 +131,25 @@ export function Navigation() {
                         Signing Out...
                       </>
                     ) : (
-                      'Sign Out'
+                      "Sign Out"
                     )}
                   </Button>
                 </div>
               ) : (
                 <div className="flex items-center space-x-2">
-                  <Link href="/auth/signin">
-                    <Button variant="ghost" size="sm" className="hover:bg-accent">
+                  <Link href="/login">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="hover:bg-accent"
+                    >
                       Sign In
                     </Button>
                   </Link>
-                  <Link href="/auth/signup">
-                    <Button size="sm" className="shadow-sm">Sign Up</Button>
+                  <Link href="/signup">
+                    <Button size="sm" className="shadow-sm">
+                      Sign Up
+                    </Button>
                   </Link>
                 </div>
               )}
@@ -146,7 +177,7 @@ export function Navigation() {
                     </Badge>
                   </SheetTitle>
                 </SheetHeader>
-                
+
                 <div className="flex flex-col space-y-2 py-4">
                   {navigationItems.map((item) => {
                     const Icon = item.icon
@@ -173,7 +204,9 @@ export function Navigation() {
                   {isPending ? (
                     <div className="flex items-center justify-center space-x-2 py-4">
                       <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
-                      <span className="text-sm text-muted-foreground">Loading profile...</span>
+                      <span className="text-sm text-muted-foreground">
+                        Loading profile...
+                      </span>
                     </div>
                   ) : session?.user ? (
                     <div className="space-y-4">
@@ -210,13 +243,17 @@ export function Navigation() {
                     </div>
                   ) : (
                     <div className="space-y-3">
-                      <Link href="/auth/signin" onClick={() => setIsOpen(false)}>
-                        <Button variant="outline" size="sm" className="w-full justify-start">
+                      <Link href="/login" onClick={() => setIsOpen(false)}>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="w-full justify-start"
+                        >
                           <User className="h-4 w-4 mr-2" />
                           Sign In
                         </Button>
                       </Link>
-                      <Link href="/auth/signup" onClick={() => setIsOpen(false)}>
+                      <Link href="/signup" onClick={() => setIsOpen(false)}>
                         <Button size="sm" className="w-full shadow-sm">
                           Get Started
                         </Button>
